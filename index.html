@@ -1,0 +1,1340 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Tu invitación personal a la Posada ¿De aquí a dónde 2.0? — sábado 5 de diciembre, 12:00 pm, Tlaquepaque.">
+<title>Posada ¿De aquí a dónde 2.0?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bagel+Fat+One&family=Pacifico&family=Nunito:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap">
+<style>
+[hidden] { display: none !important; }
+body { margin: 0; }
+img { max-width: 100%; }
+
+/* Layout: a posada night — papel picado and a light string across the top, snow behind,
+   a single centered column (max 760px) that switches between three views:
+   Christmas tree of name ornaments → personal profile + invitation + candy draw → organizers' panel. */
+:root {
+  --night: #0e1430;
+  --night-2: #18204a;
+  --night-3: #232c63;
+  --paper: #fff6e8;
+  --muted: #b7bde3;
+  --candle: #ffc95a;
+  --rosa: #ff3d8b;
+  --pine: #2aa37c;
+  --line: rgba(255, 246, 232, .14);
+  --ok: #49d39a;
+  --no: #ff7a7a;
+  --wait: #ffc95a;
+  --f-display: "Bagel Fat One", "Arial Rounded MT Bold", "Trebuchet MS", system-ui, sans-serif;
+  --f-script: "Pacifico", "Brush Script MT", cursive;
+  --f-body: "Nunito", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --f-mono: "DM Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  background: radial-gradient(120% 70% at 50% 0%, var(--night-3) 0%, var(--night-2) 35%, var(--night) 75%) fixed, var(--night);
+  color: var(--paper);
+  font: 16px/1.55 var(--f-body);
+  overflow-x: hidden;
+}
+#snow { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
+#fx { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 50; }
+
+.top { position: relative; z-index: 2; }
+.picado { display: flex; width: 100%; height: 64px; overflow: hidden; }
+.picado span {
+  flex: 1 0 74px; height: 58px; margin: 0 2px;
+  -webkit-mask: var(--cut) center / 100% 100% no-repeat; mask: var(--cut) center / 100% 100% no-repeat;
+  transform-origin: top center; animation: sway 4s ease-in-out infinite;
+}
+.picado span:nth-child(5n+1) { background: var(--rosa); }
+.picado span:nth-child(5n+2) { background: var(--candle); animation-delay: -1s; }
+.picado span:nth-child(5n+3) { background: var(--pine); animation-delay: -2s; }
+.picado span:nth-child(5n+4) { background: #8f6cff; animation-delay: -3s; }
+.picado span:nth-child(5n+5) { background: #ff8a3d; animation-delay: -1.5s; }
+@keyframes sway { 0%,100% { transform: rotate(-1.5deg); } 50% { transform: rotate(1.5deg); } }
+
+.lights { position: relative; height: 40px; margin-top: 6px; }
+.lights svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.bulbs { position: absolute; inset: 0; display: flex; justify-content: space-around; padding-inline: 10px; }
+.bulb {
+  width: 14px; height: 20px; margin-top: 8px; border: 0; padding: 0; cursor: pointer;
+  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+  background: var(--c); box-shadow: 0 0 12px 3px var(--c);
+  animation: twinkle 2.4s ease-in-out infinite; animation-delay: var(--d);
+}
+.bulb:focus-visible { outline: 2px solid var(--paper); outline-offset: 3px; }
+@keyframes twinkle { 0%,100% { opacity: 1; } 50% { opacity: .45; box-shadow: 0 0 4px 1px var(--c); } }
+
+main {
+  position: relative; z-index: 1;
+  max-width: 760px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 8px 72px;
+}
+
+.eyebrow { font: 500 12px/1.3 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--candle); }
+h1, h2, h3 { font-family: var(--f-display); font-weight: 400; line-height: 1.02; text-wrap: balance; margin: 0; }
+
+/* ---------- Picker: the tree ---------- */
+.hero { text-align: center; display: grid; gap: 10px; justify-items: center; padding-block: 18px 8px; }
+.hero h1 { font-size: clamp(44px, 11vw, 84px); color: var(--paper); letter-spacing: .01em; }
+.hero h1 em { font-style: normal; color: var(--candle); display: block; font-size: .5em; margin-top: 6px; }
+.when { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.chip { font: 500 13px/1 var(--f-mono); padding: 8px 12px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.04); }
+
+.pick-title { margin: 26px 0 4px; text-align: center; font-size: clamp(26px, 6vw, 36px); }
+.pick-sub { text-align: center; color: var(--muted); margin: 0 0 6px; }
+.tree-wrap { position: relative; width: min(100%, 580px); max-width: 100%; aspect-ratio: 3 / 4; margin: 0 auto; }
+.tree-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.tree-bg .tw { animation: twinkle 2.2s ease-in-out infinite; }
+.orns { position: absolute; inset: 0; }
+.orn {
+  position: absolute; width: 18.5%; aspect-ratio: 120 / 150; translate: -50% -50%;
+  background: none; border: 0; padding: 0; cursor: pointer; color: inherit;
+  transform-origin: 50% 4%; animation: swing 3.4s ease-in-out infinite; animation-delay: var(--d);
+  filter: drop-shadow(0 8px 10px rgba(0,0,0,.4));
+  transition: filter .25s;
+}
+.orn svg { width: 100%; height: 100%; display: block; overflow: visible; }
+.orn:hover, .orn:focus-visible { filter: drop-shadow(0 0 14px var(--glow)) drop-shadow(0 8px 10px rgba(0,0,0,.4)); outline: none; }
+.orn .done { position: absolute; right: 4%; bottom: 6%; width: 26%; aspect-ratio: 1; border-radius: 50%; background: var(--ok); color: #05301e; display: grid; place-items: center; font: 800 12px/1 var(--f-body); box-shadow: 0 0 0 2px var(--night); }
+@keyframes swing { 0%,100% { rotate: -4deg; } 50% { rotate: 4deg; } }
+.orn.pop { animation: pop .45s ease-in forwards; }
+@keyframes pop { 40% { scale: 1.2; } 100% { scale: 0; opacity: 0; } }
+
+/* ---------- Profile ---------- */
+.bar { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding-block: 6px 14px; }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  font: 800 15px/1 var(--f-body); color: var(--paper); text-decoration: none;
+  padding: 12px 16px; border-radius: 12px; border: 1px solid var(--line); background: rgba(255,255,255,.06); cursor: pointer;
+}
+.btn:hover { background: rgba(255,255,255,.12); }
+.btn:focus-visible { outline: 2px solid var(--candle); outline-offset: 2px; }
+.btn.ghost { padding: 9px 12px; font-size: 14px; }
+.btn[disabled] { opacity: .5; cursor: not-allowed; }
+
+.profile { display: grid; grid-template-columns: auto 1fr; gap: 18px; align-items: center; }
+.avatar { width: 120px; filter: drop-shadow(0 10px 18px rgba(0,0,0,.45)); }
+.avatar svg { width: 100%; height: auto; display: block; }
+.profile h2 { font-size: clamp(38px, 9vw, 58px); }
+.cargo { margin: 8px 0 0; color: var(--muted); }
+.cargo strong { color: var(--paper); }
+.note { margin: 18px 0 0; padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.05); border: 1px dashed var(--line); font-size: 17px; }
+
+/* Envelope */
+.env-wrap { margin-top: 26px; display: grid; justify-items: center; gap: 10px; }
+.envelope {
+  position: relative; width: min(100%, 420px); aspect-ratio: 1.55; max-width: 100%; border: 0; padding: 0; cursor: pointer;
+  background: linear-gradient(160deg, var(--a), var(--b)); border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,.45);
+}
+.envelope::before { content: ""; position: absolute; inset: 0; border-radius: 14px; background: linear-gradient(to top right, transparent 49.6%, rgba(0,0,0,.18) 50%) left bottom / 50% 100% no-repeat, linear-gradient(to top left, transparent 49.6%, rgba(0,0,0,.18) 50%) right bottom / 50% 100% no-repeat; }
+.envelope .flap {
+  position: absolute; left: 0; right: 0; top: 0; height: 58%;
+  background: color-mix(in srgb, var(--b) 80%, #000);
+  clip-path: polygon(0 0, 100% 0, 50% 100%); transform-origin: top; transition: transform .7s ease;
+  border-radius: 14px 14px 0 0;
+}
+.envelope .seal {
+  position: absolute; left: 50%; top: 58%; translate: -50% -50%; width: 68px; height: 68px; border-radius: 50%;
+  display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #ff6b6b, #a3162b 70%);
+  box-shadow: 0 4px 10px rgba(0,0,0,.4); font: 400 30px/1 var(--f-display); color: #ffe7c2; transition: opacity .3s, transform .3s;
+}
+.envelope .lbl { position: absolute; bottom: 12px; left: 0; right: 0; text-align: center; font: 500 12px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--ink); opacity: .85; }
+.envelope.open .flap { transform: rotateX(180deg); }
+.envelope.open .seal { opacity: 0; transform: scale(.6); }
+.envelope:focus-visible { outline: 3px solid var(--candle); outline-offset: 4px; }
+.hint { color: var(--muted); font-size: 14px; margin: 0; }
+
+/* Invitation */
+.invite {
+  position: relative; margin-top: 22px; border-radius: 22px; overflow: hidden; color: var(--ink);
+  background: radial-gradient(120% 80% at 100% 0%, color-mix(in srgb, var(--a) 40%, transparent), transparent 60%), linear-gradient(165deg, var(--b), color-mix(in srgb, var(--b) 55%, #000));
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+  animation: rise .8s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes rise { from { transform: translateY(40px); opacity: 0; } }
+.invite .edge { height: 26px; background: var(--a); -webkit-mask: var(--edge) top / 52px 26px repeat-x; mask: var(--edge) top / 52px 26px repeat-x; }
+.inv-body { padding: 18px 22px 26px; display: grid; gap: 18px; }
+.inv-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; }
+.ticket { font: 500 12px/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; opacity: .85; }
+.inv-motif { width: 84px; height: 84px; flex: none; filter: drop-shadow(0 6px 10px rgba(0,0,0,.3)); }
+.inv-motif svg { width: 100%; height: 100%; }
+.inv-para { font: 800 18px/1.2 var(--f-body); margin: 6px 0 0; }
+.inv-para span { font-family: var(--f-display); font-weight: 400; font-size: clamp(34px, 8vw, 48px); display: block; color: var(--a); line-height: 1; margin-top: 4px; }
+.why { margin: 0; padding: 16px 18px 16px; border-radius: 16px; background: rgba(255,255,255,.08); border: 1px solid color-mix(in srgb, var(--a) 50%, transparent); }
+.why .k { font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--a); }
+.why blockquote { margin: 8px 0 0; font: 400 clamp(20px, 4.6vw, 25px)/1.35 var(--f-script); }
+.inv-title { display: grid; gap: 4px; }
+.inv-title small { font: 700 14px/1.2 var(--f-body); letter-spacing: .18em; text-transform: uppercase; opacity: .85; }
+.inv-title h3 { font-size: clamp(54px, 15vw, 96px); letter-spacing: .02em; }
+.inv-title .sub { font-family: var(--f-display); font-size: clamp(22px, 5.4vw, 32px); color: var(--a); line-height: 1.1; }
+.facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.fact { padding: 12px 14px; border-radius: 14px; background: rgba(0,0,0,.22); border: 1px solid rgba(255,255,255,.12); min-width: 0; }
+.fact .k { font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+.fact .v { font-weight: 800; font-size: 18px; margin-top: 6px; line-height: 1.25; }
+.fact .v small { display: block; font-weight: 600; font-size: 14px; opacity: .85; margin-top: 2px; }
+.fact.wide { grid-column: 1 / -1; }
+.dress { background: color-mix(in srgb, var(--a) 22%, rgba(0,0,0,.25)); border-color: color-mix(in srgb, var(--a) 55%, transparent); }
+.dress .v { font-family: var(--f-display); font-weight: 400; font-size: 28px; color: var(--a); }
+.dress p { margin: 6px 0 0; font-size: 15px; }
+.count { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; text-align: center; }
+.count div { padding: 10px 4px; border-radius: 12px; background: rgba(0,0,0,.25); }
+.count b { display: block; font: 500 clamp(22px, 6vw, 30px)/1 var(--f-mono); font-variant-numeric: tabular-nums; }
+.count span { font: 500 10px/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; opacity: .75; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.actions .btn { color: var(--ink); background: rgba(0,0,0,.22); border-color: rgba(255,255,255,.2); }
+.actions .btn.solid { background: var(--a); color: var(--b); border-color: transparent; }
+
+/* Sections */
+.section { margin-top: 34px; }
+.section h3 { font-size: clamp(28px, 7vw, 38px); }
+.section > p { color: var(--muted); margin: 6px 0 0; }
+.card { margin-top: 14px; padding: 20px; border-radius: 20px; background: linear-gradient(160deg, rgba(255,255,255,.07), rgba(255,255,255,.03)); border: 1px solid var(--line); display: grid; gap: 14px; }
+
+/* RSVP */
+.choices { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.choice {
+  display: grid; gap: 6px; justify-items: center; text-align: center; padding: 16px 10px; border-radius: 16px; cursor: pointer;
+  border: 2px solid var(--line); background: rgba(0,0,0,.18); color: var(--paper); font: 800 17px/1.2 var(--f-body);
+}
+.choice svg { width: 34px; height: 34px; }
+.choice small { font: 600 13px/1.3 var(--f-body); color: var(--muted); }
+.choice[aria-pressed="true"].yes { border-color: var(--ok); background: color-mix(in srgb, var(--ok) 18%, transparent); }
+.choice[aria-pressed="true"].no { border-color: var(--no); background: color-mix(in srgb, var(--no) 16%, transparent); }
+.choice:focus-visible { outline: 2px solid var(--candle); outline-offset: 2px; }
+.field { display: grid; gap: 6px; }
+label.lb { font-weight: 800; font-size: 15px; }
+.help { color: var(--muted); font-size: 14px; margin: 0; }
+input[type="text"], textarea { width: 100%; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--line); background: rgba(0,0,0,.25); color: var(--paper); font: 16px/1.4 var(--f-body); }
+textarea { min-height: 90px; resize: vertical; }
+input[type="text"]:focus-visible, textarea:focus-visible { outline: 2px solid var(--candle); outline-offset: 1px; }
+.send { justify-self: start; background: var(--candle); color: #2a1a00; border: 0; font-size: 16px; padding: 14px 20px; }
+.send:hover { background: #ffd57c; }
+.status { padding: 14px 16px; border-radius: 14px; font-weight: 700; }
+.status.ok { background: color-mix(in srgb, var(--ok) 16%, transparent); border: 1px solid color-mix(in srgb, var(--ok) 50%, transparent); }
+.status.no { background: color-mix(in srgb, var(--no) 14%, transparent); border: 1px solid color-mix(in srgb, var(--no) 45%, transparent); }
+.status.err { background: rgba(255,201,90,.12); border: 1px solid rgba(255,201,90,.45); font-weight: 600; }
+.status p { margin: 4px 0 0; font-weight: 600; color: var(--muted); }
+.row-btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.deadline { margin: 4px 0 0; padding: 8px 14px; border-radius: 999px; background: rgba(241,199,91,.12); border: 1px solid rgba(241,199,91,.4); color: #f6d98a; font-weight: 700; font-size: 14px; }
+.deadline:empty { display: none; }
+
+/* Locked blocks */
+.locked { display: grid; gap: 14px; }
+.lock-head { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 14px; align-items: center; }
+.lock-ico { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; background: radial-gradient(circle at 35% 30%, #ffe7a0, #b8862b); color: #4a2a00; box-shadow: 0 6px 14px rgba(0,0,0,.35); }
+.lock-ico svg { width: 26px; height: 26px; stroke: #4a2a00; stroke-width: 2.6; }
+.lock-head strong { display: block; font-size: 17px; }
+.lock-head span { color: var(--muted); font-size: 14px; }
+.lock-count { font: 500 15px/1.2 var(--f-mono); color: #f6d98a; font-variant-numeric: tabular-nums; }
+.lock-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+.lock-tile { position: relative; display: grid; justify-items: center; align-content: center; gap: 8px; min-height: 110px; padding: 12px 8px; border-radius: 14px; background: rgba(0,0,0,.22); border: 1px dashed rgba(241,199,91,.35); text-align: center; font-weight: 800; font-size: 14px; color: var(--muted); }
+.lock-tile svg { width: 34px; height: 34px; opacity: .55; }
+.lock-tile::after { content: "🔒"; position: absolute; top: 8px; right: 10px; font-size: 14px; }
+.waiting { font-weight: 800; color: #f6d98a; }
+
+/* Roulette */
+.wheel-box { display: grid; justify-items: center; gap: 12px; }
+.wheel { position: relative; width: min(100%, 340px); aspect-ratio: 1; }
+.wheel svg { width: 100%; height: 100%; display: block; }
+.wheel .spin { transform-origin: 50% 50%; transition: transform 5s cubic-bezier(.12,.72,.08,1); }
+.wheel .pointer { position: absolute; left: 50%; top: -6px; translate: -50% 0; width: 0; height: 0; border-left: 16px solid transparent; border-right: 16px solid transparent; border-top: 30px solid var(--candle); filter: drop-shadow(0 3px 4px rgba(0,0,0,.5)); }
+.wheel .hub { position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 22%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #ffe39a, #c9922a); box-shadow: 0 4px 10px rgba(0,0,0,.45); display: grid; place-items: center; font: 400 15px/1 var(--f-display); color: #4a2a00; }
+.wheel-msg { font-family: var(--f-display); font-size: 22px; color: var(--candle); min-height: 26px; text-align: center; }
+
+.mission { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; align-items: center; }
+.mission .avatar { width: 96px; }
+.mission .k { font: 500 11px/1 var(--f-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--candle); }
+.mission h4 { margin: 6px 0 0; font: 400 clamp(30px, 7vw, 40px)/1.05 var(--f-display); }
+.mission p { margin: 6px 0 0; }
+.candy-tag { display: inline-flex; align-items: center; gap: 8px; margin-top: 8px; padding: 8px 12px; border-radius: 999px; background: rgba(255,201,90,.14); border: 1px solid rgba(255,201,90,.4); font-weight: 800; }
+.secret-note { font-size: 14px; color: var(--muted); margin: 0; }
+
+/* Buzón */
+.letters { display: grid; gap: 10px; }
+.letter { position: relative; padding: 14px 16px 14px 18px; border-radius: 14px; background: #fff6e8; color: #2b1d10; transform: rotate(var(--r)); box-shadow: 0 8px 18px rgba(0,0,0,.35); }
+.letter p { margin: 0; font: 400 20px/1.35 var(--f-script); overflow-wrap: anywhere; }
+.letter small { display: block; margin-top: 6px; font: 500 11px/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: #8a6a44; }
+.empty { padding: 18px; text-align: center; color: var(--muted); border: 1px dashed var(--line); border-radius: 14px; }
+
+/* Piñata */
+.pinata-box { margin-top: 14px; display: grid; justify-items: center; gap: 10px; padding: 18px; border-radius: 18px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+.pinata-stage { position: relative; height: 220px; width: 100%; display: grid; justify-items: center; }
+.rope { width: 2px; height: 50px; background: rgba(255,246,232,.5); }
+#pinata { border: 0; background: none; padding: 0; cursor: pointer; width: 170px; height: 170px; transform-origin: 50% -50px; animation: swing 2.6s ease-in-out infinite; }
+#pinata svg { width: 100%; height: 100%; }
+#pinata.hit { animation: hit .3s ease; }
+#pinata.broken { visibility: hidden; }
+#pinata:focus-visible { outline: 2px dashed var(--candle); outline-offset: 6px; border-radius: 20px; }
+@keyframes hit { 0% { transform: rotate(0); } 25% { transform: rotate(-14deg) scale(.96); } 60% { transform: rotate(10deg); } 100% { transform: rotate(0); } }
+.hits { display: flex; gap: 6px; }
+.hits i { width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--candle); }
+.hits i.on { background: var(--candle); }
+.chant { font-family: var(--f-display); font-size: 22px; color: var(--candle); min-height: 26px; text-align: center; }
+
+footer { margin-top: 44px; text-align: center; color: var(--muted); font-size: 13px; display: grid; gap: 10px; justify-items: center; }
+
+/* ---------- Panel ---------- */
+.panel-head { display: grid; gap: 6px; padding-block: 10px 6px; }
+.panel-head h2 { font-size: clamp(34px, 8vw, 50px); }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 14px; }
+.stat { padding: 14px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid var(--line); min-width: 0; }
+.stat b { display: block; font: 500 34px/1 var(--f-mono); font-variant-numeric: tabular-nums; }
+.stat span { font-size: 13px; font-weight: 700; color: var(--muted); }
+.stat.ok b { color: var(--ok); } .stat.no b { color: var(--no); } .stat.wait b { color: var(--wait); } .stat.candy b { color: var(--rosa); }
+.meter { display: flex; height: 10px; border-radius: 999px; overflow: hidden; margin-top: 12px; background: rgba(255,255,255,.08); }
+.meter i { display: block; height: 100%; }
+.feed { margin-top: 20px; }
+.feed-head { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.feed-head h3 { font-size: 26px; }
+.badge { display: inline-grid; place-items: center; min-width: 26px; height: 26px; padding: 0 8px; border-radius: 999px; background: var(--rosa); color: #fff; font: 800 13px/1 var(--f-body); margin-left: 8px; vertical-align: middle; }
+.list { margin-top: 12px; display: grid; gap: 8px; }
+.row { display: grid; grid-template-columns: 52px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid var(--line); }
+.row.new { border-color: color-mix(in srgb, var(--rosa) 70%, transparent); background: color-mix(in srgb, var(--rosa) 10%, transparent); }
+.row .mini { width: 46px; }
+.row .mini svg { width: 100%; height: auto; display: block; }
+.row .who { font-weight: 800; }
+.row .msg { color: var(--paper); font-size: 14px; overflow-wrap: anywhere; }
+.row .meta { font: 500 11px/1.4 var(--f-mono); color: var(--muted); }
+.pill { font: 500 12px/1 var(--f-mono); padding: 7px 10px; border-radius: 999px; white-space: nowrap; }
+.pill.ok { background: color-mix(in srgb, var(--ok) 20%, transparent); color: var(--ok); }
+.pill.no { background: color-mix(in srgb, var(--no) 18%, transparent); color: var(--no); }
+.pill.wait { background: rgba(255,201,90,.14); color: var(--wait); }
+.pill.new { background: var(--rosa); color: #fff; }
+.pairs { margin-top: 26px; }
+.pairs h3, .links h3 { font-size: 26px; }
+.pairs > p, .links > p { color: var(--muted); margin: 6px 0 12px; }
+.pair { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); gap: 10px; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--line); }
+.pair .to { text-align: right; }
+.pair small { display: block; color: var(--muted); font-size: 13px; }
+.warn { margin-top: 12px; padding: 12px 14px; border-radius: 12px; background: rgba(255,201,90,.1); border: 1px solid rgba(255,201,90,.35); font-size: 14px; }
+.links { margin-top: 26px; }
+.link-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.link-row code { font: 400 12px/1.4 var(--f-mono); color: var(--muted); overflow-wrap: anywhere; user-select: all; }
+
+.toast { position: fixed; left: 50%; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); translate: -50% 0; z-index: 60; background: var(--paper); color: var(--night); font-weight: 800; padding: 12px 18px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.4); max-width: calc(100% - 32px); text-align: center; }
+
+@media (max-width: 520px) {
+  .profile { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .inv-body { padding: 16px 16px 22px; }
+  .facts { grid-template-columns: 1fr; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .mission { grid-template-columns: 1fr; justify-items: center; text-align: center; }
+  .lock-tiles { grid-template-columns: 1fr; }
+  .lock-tile { min-height: 0; grid-auto-flow: column; justify-content: start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+
+<canvas id="snow" aria-hidden="true"></canvas>
+<canvas id="fx" aria-hidden="true"></canvas>
+
+<div class="top">
+  <div class="lights">
+    <svg viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true"><path d="M0 2 Q 12.5 9 25 3 T 50 3 T 75 3 T 100 2" fill="none" stroke="#2c4a2e" stroke-width=".6"/></svg>
+    <div class="bulbs" id="bulbs"></div>
+  </div>
+</div>
+
+<main>
+  <!-- Picker -->
+  <section id="v-pick">
+    <div class="hero">
+      <span class="eyebrow">Están todos invitados</span>
+      <h1>Posada<em>¿De aquí a dónde 2.0?</em></h1>
+      <div class="when">
+        <span class="chip">Sáb 5 dic 2026</span>
+        <span class="chip">12:00 pm</span>
+        <span class="chip">Tlaquepaque, Jal.</span>
+      </div>
+      <p class="deadline" id="deadline"></p>
+      <a class="btn" id="to-panel-top" href="#panel" hidden>Panel de organizadores</a>
+    </div>
+    <h2 class="pick-title">Busca tu esfera en el árbol</h2>
+    <p class="pick-sub">Tócala para abrir tu invitación.</p>
+    <div class="tree-wrap">
+      <svg class="tree-bg" id="tree-bg" viewBox="0 0 300 400" aria-hidden="true"></svg>
+      <div class="orns" id="tree"></div>
+    </div>
+  </section>
+
+  <!-- Profile -->
+  <section id="v-guest" hidden>
+    <div class="bar">
+      <button class="btn ghost" id="back" type="button">← Volver al árbol</button>
+      <span class="eyebrow" id="g-ticket"></span>
+    </div>
+
+    <div class="profile" id="g-profile"></div>
+    <p class="note" id="g-note"></p>
+
+    <div class="env-wrap" id="env-wrap">
+      <button class="envelope" id="envelope" type="button" aria-label="Abrir tu invitación">
+        <span class="flap"></span>
+        <span class="seal" id="seal"></span>
+        <span class="lbl">Toca para abrir</span>
+      </button>
+      <p class="hint">Tu invitación viene sellada con tu inicial.</p>
+    </div>
+
+    <article class="invite" id="invite" hidden></article>
+
+    <div class="section" id="rsvp-sec">
+      <h3>¿Nos acompañas?</h3>
+      <p>La confirmación está abierta hasta el jueves 19 de noviembre a las 5:00 pm.</p>
+      <div class="card" id="rsvp"></div>
+    </div>
+
+    <div class="section" id="exchange-sec">
+      <h3 id="ex-title">Sorpresa</h3>
+      <p id="ex-sub" hidden></p>
+      <div class="card" id="exchange"></div>
+    </div>
+
+    <div class="section" id="buzon-sec">
+      <h3 id="bz-title">Otra sorpresa</h3>
+      <p id="bz-sub" hidden></p>
+      <div class="card" id="buzon"></div>
+    </div>
+
+    <div class="section">
+      <h3>Calienta para la piñata</h3>
+      <p>Siete picos, siete pecados. Dale hasta romperla.</p>
+      <div class="pinata-box">
+        <div class="pinata-stage">
+          <div class="rope"></div>
+          <button id="pinata" type="button" aria-label="Pegarle a la piñata"></button>
+        </div>
+        <div class="hits" id="hits" aria-hidden="true"></div>
+        <div class="chant" id="chant" aria-live="polite">Toca la piñata</div>
+        <button class="btn ghost" id="pin-reset" type="button" hidden>Colgar otra piñata</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Organizers' panel -->
+  <section id="v-panel" hidden>
+    <div class="bar">
+      <button class="btn ghost" id="back2" type="button">← Volver al árbol</button>
+    </div>
+    <div id="panel"></div>
+  </section>
+
+  <footer>
+    <span>Av. del Parque 282, Paseo de los Parques, Tlaquepaque</span>
+    <a class="btn ghost" id="to-panel" href="#panel" hidden>Panel de organizadores</a>
+  </footer>
+</main>
+
+<div class="toast" id="toast" hidden role="status"></div>
+
+<script>
+// ---------- Event data ----------
+const EVENT = {
+  name: "Posada",
+  sub: "¿De aquí a dónde 2.0?",
+  start: new Date("2026-12-05T12:00:00-06:00"),
+  address: "Av. del Parque 282, Paseo de los Parques, 45615 San Pedro Tlaquepaque, Jal.",
+};
+const MAPS = "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(EVENT.address);
+const CAL = "https://calendar.google.com/calendar/render?action=TEMPLATE"
+  + "&text=" + encodeURIComponent("Posada ¿De aquí a dónde 2.0?")
+  + "&dates=20261205T180000Z/20261206T000000Z"
+  + "&location=" + encodeURIComponent(EVENT.address)
+  + "&details=" + encodeURIComponent("Código de vestimenta: Solo Guapos. Habrá comida, piñatas, música y mucha diversión.");
+
+// ---------- Palettes and motifs ----------
+// a/b/ink: invitation card; ball/bow: the tree ornament
+const PAL = [
+  { a: "#ff6fae", b: "#5a0f3c", ink: "#fff3f8", ball: "#d6245f", bow: "#9e0f3a" }, // rosa mexicano
+  { a: "#ffd166", b: "#0f4a38", ink: "#fffaf0", ball: "#13824a", bow: "#c8102e" }, // pino
+  { a: "#8fd3ff", b: "#16235f", ink: "#f2f8ff", ball: "#2350b8", bow: "#d9a83a" }, // noche azul
+  { a: "#ffb347", b: "#5c1f0b", ink: "#fff6ea", ball: "#e2711d", bow: "#b3122e" }, // ponche
+  { a: "#6ff0d2", b: "#08414d", ink: "#effffb", ball: "#0f948e", bow: "#d9a83a" }, // turquesa
+  { a: "#d7a6ff", b: "#35165f", ink: "#fbf4ff", ball: "#7a33c4", bow: "#d9a83a" }, // violeta
+  { a: "#ff8a80", b: "#5a0c17", ink: "#fff1ef", ball: "#c8102e", bow: "#8f0a1f" }, // rojo navidad
+];
+const MOTIF = {
+  star: (c) => `<svg viewBox="0 0 100 100"><polygon points="50,4 61,36 96,36 68,57 79,92 50,71 21,92 32,57 4,36 39,36" fill="${c}"/><circle cx="50" cy="52" r="14" fill="#fff" opacity=".85"/><circle cx="50" cy="52" r="7" fill="${c}"/></svg>`,
+  bauble: (c) => `<svg viewBox="0 0 100 100"><rect x="40" y="6" width="20" height="12" rx="3" fill="#ffe39a"/><circle cx="50" cy="58" r="36" fill="${c}"/><path d="M16 52 Q50 70 84 52" stroke="#fff" stroke-width="5" fill="none" opacity=".8"/><circle cx="37" cy="44" r="7" fill="#fff" opacity=".7"/></svg>`,
+  flower: (c) => `<svg viewBox="0 0 100 100"><g fill="${c}">${[0,45,90,135,180,225,270,315].map(r=>`<ellipse cx="50" cy="24" rx="11" ry="24" transform="rotate(${r} 50 50)"/>`).join("")}</g><circle cx="50" cy="50" r="9" fill="#ffd166"/><circle cx="46" cy="47" r="2.5" fill="#2aa37c"/><circle cx="54" cy="53" r="2.5" fill="#2aa37c"/></svg>`,
+  bell: (c) => `<svg viewBox="0 0 100 100"><path d="M50 10c-18 0-28 14-28 32v20l-10 12h76L78 62V42c0-18-10-32-28-32z" fill="${c}"/><circle cx="50" cy="82" r="9" fill="#ffe39a"/><path d="M30 40c2-10 8-16 16-18" stroke="#fff" stroke-width="5" fill="none" opacity=".7" stroke-linecap="round"/></svg>`,
+  candle: (c) => `<svg viewBox="0 0 100 100"><path d="M50 6c8 12 10 18 0 28-10-10-8-16 0-28z" fill="#ffd166"/><rect x="36" y="36" width="28" height="56" rx="6" fill="${c}"/><rect x="42" y="42" width="6" height="40" rx="3" fill="#fff" opacity=".55"/></svg>`,
+  cup: (c) => `<svg viewBox="0 0 100 100"><path d="M30 18c-4-8 4-12 0-18M48 18c-4-8 4-12 0-18M66 18c-4-8 4-12 0-18" stroke="#fff" stroke-width="3" fill="none" opacity=".6" transform="translate(0 12)"/><path d="M14 40h62v18c0 18-14 32-31 32S14 76 14 58z" fill="${c}"/><path d="M76 46h6c8 0 8 18 0 18h-8" stroke="${c}" stroke-width="6" fill="none"/><circle cx="34" cy="56" r="6" fill="#ffb347"/><circle cx="52" cy="62" r="5" fill="#ffd166"/></svg>`,
+  gift: (c) => `<svg viewBox="0 0 100 100"><rect x="14" y="40" width="72" height="50" rx="6" fill="${c}"/><rect x="10" y="30" width="80" height="16" rx="4" fill="${c}"/><rect x="45" y="30" width="10" height="60" fill="#ffe39a"/><path d="M50 30c-10-18-30-14-22-2 4 5 22 2 22 2zm0 0c10-18 30-14 22-2-4 5-22 2-22 2z" fill="#ffe39a"/></svg>`,
+};
+
+// ---------- Guests ----------
+const GUESTS = [
+  { slug: "itzel",     name: "Itzel",     pal: 0, motif: "star",   cargo: "Comisión de Luces y Brillo", note: "Las luces de la posada no prenden igual sin ti. Ven a darles brillo.",
+    why: "Porque contigo todo brilla más: la posada no se siente completa hasta que tú llegas." },
+  { slug: "ale",       name: "Ale",       pal: 3, motif: "cup",    cargo: "Alta Dirección del Ponche", note: "El ponche ya está avisado: llegas tú y sube de nivel.",
+    why: "Porque este año lo construimos en equipo, y tu esfuerzo está en cada logro que vamos a celebrar." },
+  { slug: "abraham",   name: "Abraham",   pal: 1, motif: "star",   cargo: "Primer turno con la piñata", note: "Tienes apartado el primer palo. Calienta ese brazo desde ya.",
+    why: "Porque tus ganas de sacar todo adelante nos contagian, y esta fiesta también es para reconocerlo." },
+  { slug: "sol",       name: "Sol",       pal: 3, motif: "candle", cargo: "Fuente oficial de calor", note: "Con tu nombre ni falta hace calentador. Te esperamos para que alumbres la tarde.",
+    why: "Porque haces que los días pesados se sientan ligeros, y queremos brindar por eso contigo." },
+  { slug: "paulina",   name: "Paulina",   pal: 5, motif: "bell",   cargo: "Directiva de Villancicos", note: "Ya ensayamos los villancicos; falta tu voz para que suenen en serio.",
+    why: "Porque tu alegría hace equipo, y una posada sin tu risa simplemente suena distinto." },
+  { slug: "magda",     name: "Magda",     pal: 6, motif: "flower", cargo: "Supervisión de Buñuelos", note: "Los buñuelos necesitan quien los apruebe, y ese puesto es tuyo.",
+    why: "Porque cuidas los detalles que nadie ve, y esta tarde queremos ser nosotros quienes te consientan." },
+  { slug: "mariana",   name: "Mariana",   pal: 0, motif: "flower", cargo: "Jurado del Concurso de Guapura", note: "Este año hay concurso de guapura y te toca calificar. Trae buen ojo.",
+    why: "Porque eres parte de lo que hace especial a este grupo, y la foto de este año no estaría completa sin ti." },
+  { slug: "braulio",   name: "Braulio",   pal: 2, motif: "bauble", cargo: "Coordinación de Chispa", note: "Se busca a quien ponga la chispa en la fiesta. Ya sabemos quién es.",
+    why: "Porque tu buen humor nos sacó de más de un apuro este año; ahora te toca celebrarlo con nosotros." },
+  { slug: "claudia",   name: "Claudia",   pal: 6, motif: "gift",   cargo: "Embajada de la Nochebuena", note: "Una posada sin ti es como una nochebuena sin rojo. No faltes.",
+    why: "Porque tu apoyo sostuvo muchos de los logros de este año, y eso merece una celebración en grande." },
+  { slug: "zaid",      name: "Zaid",      pal: 4, motif: "gift",   cargo: "Capitanía de la Colación", note: "Hay una colación con tu nombre. Literal, ya la apartamos.",
+    why: "Porque cada idea tuya sumó a este año, y queremos cerrarlo juntos, como lo empezamos." },
+  { slug: "elizabeth", name: "Elizabeth", pal: 1, motif: "bell",   cargo: "Presidencia del Comité de Tamales", note: "El comité de tamales no sesiona sin su presidencia.",
+    why: "Porque tu compromiso inspira a todo el equipo, y esta posada es nuestra forma de darte las gracias." },
+  { slug: "rene",      name: "René",      pal: 4, motif: "candle", cargo: "Dirección de Ambiente y Pista", note: "La pista está lista; solo falta quien la estrene.",
+    why: "Porque tú pones el ambiente, y una fiesta sin ti sería solo una reunión más." },
+  { slug: "gaby",      name: "Gaby",      pal: 5, motif: "bauble", cargo: "Secretaría de la Foto Grupal", note: "Alguien tiene que juntar a todos para la foto grupal. Te toca.",
+    why: "Porque tú eres quien siempre nos junta a todos, y esta vez queremos juntarnos por ti." },
+  { slug: "luis",      name: "Luis",      pal: 2, motif: "cup",    cargo: "Mesa Directiva de la Posada", note: "Sin ti esto no arranca. Ven a recibir a todos con la mejor cara.",
+    why: "Porque sin ti esta historia de ¿De aquí a dónde? no habría empezado. Ven a ver hasta dónde llegamos." },
+];
+const BY = Object.fromEntries(GUESTS.map((g, i) => [g.slug, { ...g, n: i + 1 }]));
+
+// ---------- Helpers ----------
+const $ = (s) => document.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const vars = (g) => { const p = PAL[g.pal]; return `--a:${p.a};--b:${p.b};--ink:${p.ink};--glow:#f1c75b`; };
+const initial = (g) => g.name.normalize("NFD").replace(/[̀-ͯ]/g, "")[0];
+// Prefix bumped on each reset so copies saved in browsers during testing are ignored
+const STORE_V = "v2:";
+const store = {
+  get(k) { try { return JSON.parse(localStorage.getItem(STORE_V + k)); } catch { return null; } },
+  set(k, v) { try { localStorage.setItem(STORE_V + k, JSON.stringify(v)); } catch {} },
+};
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toast._t); toast._t = setTimeout(() => (t.hidden = true), 3200);
+}
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+function shade(hex, f) {
+  const n = parseInt(hex.slice(1), 16);
+  const c = (v) => Math.max(0, Math.min(255, Math.round(v * f)));
+  return "#" + [c(n >> 16), c((n >> 8) & 255), c(n & 255)].map((v) => v.toString(16).padStart(2, "0")).join("");
+}
+
+// The ornament: glossy ball, metal ring, satin bow, white snowflakes, name in script.
+function flake(x, y, s, rot = 0) {
+  const arm = `M0 0V-${s}M0 -${s * .55}l-${s * .28} -${s * .28}M0 -${s * .55}l${s * .28} -${s * .28}`;
+  return `<g transform="translate(${x} ${y}) rotate(${rot})" stroke="#f1c75b" stroke-width="${Math.max(1.6, s * .14)}" stroke-linecap="round" fill="none" opacity=".92">${[0, 60, 120, 180, 240, 300].map((r) => `<path d="${arm}" transform="rotate(${r})"/>`).join("")}</g>`;
+}
+// Every ornament is the same elegant pair: deep red lacquer with gold lettering, bow and snowflakes.
+function ornamentSVG(g) {
+  const id = "o-" + g.slug + "-" + Math.random().toString(36).slice(2, 7);
+  const fs = Math.min(27, 168 / Math.max(4, g.name.length));
+  return `<svg viewBox="0 0 120 150" role="img" aria-label="${esc(g.name)}">
+    <defs>
+      <radialGradient id="${id}b" cx="34%" cy="30%" r="78%">
+        <stop offset="0" stop-color="#fff" stop-opacity=".75"/>
+        <stop offset=".14" stop-color="#e3243b"/>
+        <stop offset=".55" stop-color="#b1061f"/>
+        <stop offset="1" stop-color="#4f000c"/>
+      </radialGradient>
+      <linearGradient id="${id}g" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#fff1b8"/>
+        <stop offset=".45" stop-color="#f1c75b"/>
+        <stop offset="1" stop-color="#b8862b"/>
+      </linearGradient>
+      <linearGradient id="${id}r" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#ffe7a0"/>
+        <stop offset=".5" stop-color="#d6a73f"/>
+        <stop offset="1" stop-color="#9c6d1c"/>
+      </linearGradient>
+    </defs>
+    <circle cx="60" cy="9" r="6.5" fill="none" stroke="url(#${id}r)" stroke-width="2.8"/>
+    <rect x="49" y="14" width="22" height="13" rx="2.5" fill="url(#${id}r)"/>
+    <circle cx="60" cy="90" r="54" fill="url(#${id}b)"/>
+    <circle cx="60" cy="90" r="53" fill="none" stroke="#f1c75b" stroke-opacity=".35" stroke-width="1"/>
+    ${flake(28, 68, 13, 8)}${flake(92, 70, 11, -12)}${flake(98, 116, 9, 20)}${flake(46, 128, 10, 0)}${flake(84, 46, 7, 5)}
+    <ellipse cx="40" cy="60" rx="15" ry="8" fill="#fff" opacity=".16" transform="rotate(-30 40 60)"/>
+    <text x="60" y="${98 + fs * .1}" text-anchor="middle" font-family="Pacifico, 'Brush Script MT', cursive" font-size="${fs}" fill="url(#${id}g)" style="paint-order:stroke" stroke="#5a0010" stroke-width="1.4">${esc(g.name)}</text>
+    <path d="M57 30 L40 64 L47 60 L50 68 L61 32Z" fill="#a8791f"/>
+    <path d="M63 30 L80 64 L73 60 L70 68 L59 32Z" fill="#a8791f"/>
+    <path d="M60 28 C44 8 14 14 22 32 C28 44 48 38 60 28Z" fill="url(#${id}r)"/>
+    <path d="M60 28 C76 8 106 14 98 32 C92 44 72 38 60 28Z" fill="url(#${id}r)"/>
+    <path d="M60 28 C48 18 32 18 30 26" stroke="#fff" stroke-opacity=".45" stroke-width="2" fill="none"/>
+    <ellipse cx="60" cy="29" rx="8" ry="7" fill="#e9bd52"/>
+  </svg>`;
+}
+
+// ---------- Decoration ----------
+(function decorate() {
+  const cut = "url(\"data:image/svg+xml," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 74 58'><path fill-rule='evenodd' d='M0 0h74v46l-6 6-6-6-6 6-6-6-6 6-6-6-6 6-6-6-6 6-6-6-6 6-6-6-6 6L0 46z M37 10l4 9 9 1-7 6 2 9-8-5-8 5 2-9-7-6 9-1z M14 12h8v8h-8z M52 12h8v8h-8z M18 30a4 4 0 1 0 0.1 0z M56 30a4 4 0 1 0 0.1 0z'/></svg>`) + "\")";
+  document.documentElement.style.setProperty("--cut", cut);
+  const edge = "url(\"data:image/svg+xml," + encodeURIComponent(`<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 52 26'><path fill-rule='evenodd' d='M0 0h52v16l-6.5 8-6.5-8-6.5 8-6.5-8-6.5 8-6.5-8L0 16z M26 4l3 5h-6z M10 8a3 3 0 1 0 .1 0z M42 8a3 3 0 1 0 .1 0z'/></svg>`) + "\")";
+  document.documentElement.style.setProperty("--edge", edge);
+  const colors = ["#ff3d8b", "#ffc95a", "#49d39a", "#8fd3ff", "#ff8a3d", "#d7a6ff"];
+  $("#bulbs").innerHTML = Array.from({ length: 14 }, (_, i) =>
+    `<button class="bulb" type="button" aria-label="Cambiar color del foco" style="--c:${colors[i % colors.length]};--d:${(i * .37) % 2.4}s" data-i="${i % colors.length}"></button>`).join("");
+  $("#bulbs").addEventListener("click", (e) => {
+    const b = e.target.closest(".bulb"); if (!b) return;
+    const i = (+b.dataset.i + 1) % colors.length; b.dataset.i = i; b.style.setProperty("--c", colors[i]);
+  });
+
+  // The tree
+  const tiers = [[150, 44, 92, 150], [150, 96, 70, 222], [150, 160, 46, 296], [150, 228, 18, 368]];
+  const greens = ["#1f7a4c", "#1a6c43", "#165e3b", "#125233"];
+  const lights = [];
+  const lc = ["#ffc95a", "#ff3d8b", "#8fd3ff", "#fff6e8", "#49d39a"];
+  let k = 0;
+  for (let t = 0; t < tiers.length; t++) {
+    const [, top, left, bottom] = tiers[t];
+    for (let i = 0; i < 6 + t * 2; i++) {
+      const u = (i + .5) / (6 + t * 2);
+      const y = bottom - 10 - (t % 2 ? 6 : 0) * Math.sin(u * Math.PI);
+      const hw = (150 - left) * ((y - top) / (bottom - top));
+      lights.push(`<circle class="tw" cx="${150 - hw + u * 2 * hw}" cy="${y + Math.sin(u * 9) * 3}" r="2.6" fill="${lc[k % 5]}" style="animation-delay:${-(k * .31) % 2.2}s"/>`); k++;
+    }
+  }
+  $("#tree-bg").innerHTML = `
+    <defs>
+      <linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#0e3d27"/><stop offset=".5" stop-color="#1f7a4c"/><stop offset="1" stop-color="#0e3d27"/></linearGradient>
+      <radialGradient id="halo"><stop offset="0" stop-color="#ffd166" stop-opacity=".55"/><stop offset="1" stop-color="#ffd166" stop-opacity="0"/></radialGradient>
+    </defs>
+    <rect x="136" y="364" width="28" height="26" rx="3" fill="#6b3e1f"/>
+    ${tiers.slice().reverse().map(([cx, top, left, bottom], i) =>
+      `<polygon points="${cx},${top} ${300 - left},${bottom} ${left},${bottom}" fill="url(#tg)" stroke="${greens[3 - i]}" stroke-width="2" stroke-linejoin="round"/>`).join("")}
+    ${tiers.map(([, top, left, bottom]) => `<path d="M${left + 18} ${bottom - 22} Q150 ${bottom + 4} ${300 - left - 18} ${bottom - 22}" stroke="#ffd166" stroke-width="2" stroke-dasharray="1 5" stroke-linecap="round" fill="none" opacity=".75"/>`).join("")}
+    ${lights.join("")}
+    <circle cx="150" cy="30" r="34" fill="url(#halo)"/>
+    <polygon points="150,8 156,24 173,24 159,34 164,51 150,41 136,51 141,34 127,24 144,24" fill="#ffd166" stroke="#f0a92e" stroke-width="1.5"/>
+    <rect x="82" y="370" width="40" height="26" rx="3" fill="#c8102e"/><rect x="99" y="370" width="6" height="26" fill="#ffd166"/>
+    <rect x="178" y="374" width="34" height="22" rx="3" fill="#2350b8"/><rect x="192" y="374" width="6" height="22" fill="#fff6e8"/>
+    <rect x="122" y="380" width="22" height="16" rx="2" fill="#7a33c4"/>`;
+})();
+
+// Snow
+(function snow() {
+  const c = $("#snow"), x = c.getContext("2d");
+  let W, H; const flakes = [];
+  const size = () => { W = c.width = innerWidth * devicePixelRatio; H = c.height = innerHeight * devicePixelRatio; };
+  size(); addEventListener("resize", size);
+  const n = Math.min(120, Math.round(innerWidth / 8));
+  for (let i = 0; i < n; i++) flakes.push({ x: Math.random(), y: Math.random(), r: Math.random() * 2.2 + .6, s: Math.random() * .4 + .15, w: Math.random() * 6 });
+  function draw(t) {
+    x.clearRect(0, 0, W, H); x.fillStyle = "rgba(255,255,255,.75)";
+    for (const f of flakes) {
+      if (!reduce) { f.y += f.s / 600; if (f.y > 1.02) { f.y = -.02; f.x = Math.random(); } }
+      const px = (f.x + Math.sin(t / 2000 + f.w) * .006) * W;
+      x.beginPath(); x.arc(px, f.y * H, f.r * devicePixelRatio, 0, 7); x.fill();
+    }
+    if (!reduce) requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+
+// Confetti / candy bursts
+const fx = (() => {
+  const c = $("#fx"), x = c.getContext("2d"); let parts = [], running = false;
+  const size = () => { c.width = innerWidth * devicePixelRatio; c.height = innerHeight * devicePixelRatio; };
+  size(); addEventListener("resize", size);
+  const cols = ["#ff3d8b", "#ffc95a", "#49d39a", "#8fd3ff", "#ff8a3d", "#d7a6ff", "#fff6e8"];
+  function burst(px, py, count = 120, candy = false) {
+    if (reduce) return;
+    const d = devicePixelRatio;
+    for (let i = 0; i < count; i++) {
+      const a = Math.random() * Math.PI * 2, v = Math.random() * 9 + 3;
+      parts.push({ x: px * d, y: py * d, vx: Math.cos(a) * v * d, vy: (Math.sin(a) * v - 6) * d, g: .28 * d, life: 90 + Math.random() * 50, c: cols[i % cols.length], r: (candy ? 6 : 4) * d, rot: Math.random() * 6, candy });
+    }
+    if (!running) { running = true; requestAnimationFrame(step); }
+  }
+  function step() {
+    x.clearRect(0, 0, c.width, c.height);
+    parts = parts.filter((p) => p.life-- > 0);
+    for (const p of parts) {
+      p.vy += p.g; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.rot += .15;
+      x.save(); x.translate(p.x, p.y); x.rotate(p.rot); x.fillStyle = p.c; x.globalAlpha = Math.min(1, p.life / 40);
+      if (p.candy) { x.beginPath(); x.arc(0, 0, p.r, 0, 7); x.fill(); } else x.fillRect(-p.r, -p.r / 2, p.r * 2, p.r);
+      x.restore();
+    }
+    if (parts.length) requestAnimationFrame(step); else { running = false; x.clearRect(0, 0, c.width, c.height); }
+  }
+  return { burst };
+})();
+
+// ---------- Data (Google Sheets via Apps Script) ----------
+// Pega aquí la URL de tu Aplicación web de Apps Script (termina en /exec)
+const API_URL = "https://script.google.com/macros/s/AKfycbxbXCyqW--qG4-6FxB0aVerSbenlGTXRitANx2SwIW0Jtays7KSVGESVnGy0UfzYSgJ/exec";
+const apiReady = () => /^https:\/\/script\.google\.com\/.+\/exec$/.test(API_URL);
+async function apiGet(params) {
+  const r = await fetch(API_URL + "?" + new URLSearchParams(params));
+  return r.json();
+}
+async function apiPost(body) {
+  // text/plain avoids a CORS preflight, which Apps Script does not answer
+  const r = await fetch(API_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, body: JSON.stringify(body) });
+  return r.json();
+}
+const state = {};   // server state per guest slug, filled on demand
+function localAnswer(slug) { return state[slug] || store.get("rsvp:" + slug); }
+function remember(slug, st) { state[slug] = st; store.set("rsvp:" + slug, st); }
+async function refreshState(g) {
+  if (!apiReady()) return;
+  try {
+    const st = await apiGet({ action: "state", slug: g.slug });
+    if (st && !st.error) { remember(g.slug, st); if (current() === g.slug) { renderRsvp(g); renderExchange(g); } }
+  } catch {}
+}
+function initData() { route(); }
+
+// ---------- Views ----------
+function show(id) {
+  for (const v of ["#v-pick", "#v-guest", "#v-panel"]) $(v).hidden = v !== id;
+  scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+}
+
+const ROWS = [[2, 33, 17], [3, 50, 18.5], [4, 67, 19.5], [5, 84, 19]];   // count, y%, x-step%
+function renderTree() {
+  let i = 0, html = "";
+  for (const [n, y, step] of ROWS) {
+    for (let j = 0; j < n; j++, i++) {
+      const g = GUESTS[i]; if (!g) break;
+      const x = 50 + (j - (n - 1) / 2) * step;
+      const a = localAnswer(g.slug);
+      html += `<button class="orn" type="button" data-slug="${g.slug}" aria-label="Abrir la invitación de ${esc(g.name)}"
+        style="left:${x}%;top:${y + (j % 2 ? 2 : 0)}%;${vars(g)};--d:${-(i * .43) % 3.4}s">
+        ${ornamentSVG(g)}${a?.status ? `<span class="done" aria-hidden="true">✓</span>` : ""}</button>`;
+    }
+  }
+  $("#tree").innerHTML = html;
+  updateLockCounts();
+}
+$("#tree").addEventListener("click", (e) => {
+  const b = e.target.closest(".orn"); if (!b) return;
+  const r = b.getBoundingClientRect();
+  fx.burst(r.left + r.width / 2, r.top + r.height * .6, 70);
+  b.classList.add("pop");
+  setTimeout(() => { location.hash = b.dataset.slug; }, reduce ? 0 : 380);
+});
+
+function countdown() {
+  const ms = EVENT.start - Date.now();
+  if (ms <= 0) return null;
+  const s = Math.floor(ms / 1000);
+  return { d: Math.floor(s / 86400), h: Math.floor(s / 3600) % 24, m: Math.floor(s / 60) % 60, s: s % 60 };
+}
+let tick = null, phase = "";
+const phaseNow = () => `${rsvpOpen()}|${buzonOpen()}`;
+// One clock for the open profile: countdowns, plus a re-render when a deadline passes
+function profileTick() {
+  renderCount(); updateLockCounts();
+  const p = phaseNow();
+  if (p !== phase) { phase = p; const g = BY[current()]; if (g) { renderRsvp(g); renderExchange(g); watchBuzon(g); } }
+}
+function renderCount() {
+  const el = $("#count"); if (!el) return;
+  const c = countdown();
+  el.innerHTML = c
+    ? [["d", "días"], ["h", "horas"], ["m", "min"], ["s", "seg"]].map(([k, l]) => `<div><b>${String(c[k]).padStart(2, "0")}</b><span>${l}</span></div>`).join("")
+    : `<div style="grid-column:1/-1"><b>¡Hoy es la posada!</b></div>`;
+}
+
+function renderGuest(slug) {
+  const g = BY[slug];
+  $("#v-guest").setAttribute("style", vars(g));
+  $("#g-ticket").textContent = `Boleto ${String(g.n).padStart(2, "0")} de ${GUESTS.length}`;
+  $("#g-profile").innerHTML = `
+    <div class="avatar">${ornamentSVG(g)}</div>
+    <div>
+      <span class="eyebrow">Hola, te estábamos esperando</span>
+      <h2>${esc(g.name)}</h2>
+      <p class="cargo">Cargo oficial en la posada: <strong>${esc(g.cargo)}</strong></p>
+    </div>`;
+  $("#g-note").textContent = g.note;
+  $("#seal").textContent = initial(g);
+
+  const opened = store.get("opened:" + slug);
+  $("#envelope").classList.toggle("open", !!opened);
+  $("#env-wrap").hidden = !!opened;
+  $("#invite").hidden = !opened;
+  $("#invite").innerHTML = inviteHTML(g);
+  renderCount();
+  phase = phaseNow();
+  clearInterval(tick); tick = setInterval(profileTick, 1000);
+  renderRsvp(g);
+  renderExchange(g);
+  watchBuzon(g);
+  refreshState(g);
+  resetPinata();
+  show("#v-guest");
+}
+
+function inviteHTML(g) {
+  return `
+    <div class="edge"></div>
+    <div class="inv-body">
+      <div class="inv-head">
+        <div>
+          <div class="ticket">Invitación personal · N.º ${String(g.n).padStart(2, "0")}</div>
+          <p class="inv-para">Para<span>${esc(g.name)}</span></p>
+        </div>
+        <div class="inv-motif">${MOTIF[g.motif](PAL[g.pal].a)}</div>
+      </div>
+      <figure class="why">
+        <div class="k">Por qué tu lugar importa</div>
+        <blockquote>${esc(g.why)}</blockquote>
+      </figure>
+      <div class="inv-title">
+        <small>Te invitamos a la</small>
+        <h3>${EVENT.name}</h3>
+        <div class="sub">${EVENT.sub}</div>
+      </div>
+      <div class="facts">
+        <div class="fact"><div class="k">Fecha</div><div class="v">Sábado 5 de diciembre<small>2026</small></div></div>
+        <div class="fact"><div class="k">Hora</div><div class="v">12:00 pm<small>Llega puntual al ponche</small></div></div>
+        <div class="fact wide"><div class="k">Lugar</div><div class="v">Av. del Parque 282<small>Paseo de los Parques, 45615 San Pedro Tlaquepaque, Jal.</small></div></div>
+        <div class="fact wide dress"><div class="k">Código de vestimenta</div><div class="v">Solo Guapos</div>
+          <p>Único requisito: llegar guapos. Si al verte la piñata no se rompe sola, regresa a casa y vuelve a intentarlo.</p></div>
+      </div>
+      <div>
+        <div class="ticket" style="margin-bottom:8px">Faltan</div>
+        <div class="count" id="count" aria-live="off"></div>
+      </div>
+      <p style="margin:0;font-weight:700">Habrá comida, piñatas, música y mucha diversión.</p>
+      <div class="actions">
+        <a class="btn solid" href="${MAPS}" target="_blank" rel="noopener">Cómo llegar</a>
+        <a class="btn" href="${CAL}" target="_blank" rel="noopener">Agregar al calendario</a>
+        <button class="btn" type="button" id="go-rsvp">Confirmar asistencia</button>
+      </div>
+    </div>`;
+}
+$("#envelope").addEventListener("click", () => {
+  const slug = current();
+  $("#envelope").classList.add("open");
+  const r = $("#envelope").getBoundingClientRect();
+  fx.burst(r.left + r.width / 2, r.top + r.height / 2, 140);
+  store.set("opened:" + slug, true);
+  setTimeout(() => {
+    $("#env-wrap").hidden = true; $("#invite").hidden = false; renderCount();
+    $("#invite").scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+  }, reduce ? 0 : 700);
+});
+$("#invite").addEventListener("click", (e) => {
+  if (e.target.id === "go-rsvp") $("#rsvp-sec").scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
+});
+
+// ---------- Schedule ----------
+// Confirmations close Thu 19 Nov 2026, 5:00 pm (Guadalajara). Then the candy draw opens,
+// only among people who confirmed. Anonymous messages open Sat 5 Dec 2026, 6:00 pm.
+const RSVP_CLOSE = new Date("2026-11-19T17:00:00-06:00");
+const BUZON_OPEN = new Date("2026-12-05T18:00:00-06:00");
+const rsvpOpen = () => Date.now() < RSVP_CLOSE.getTime();
+const drawOpen = () => !rsvpOpen();
+const buzonOpen = () => Date.now() >= BUZON_OPEN.getTime();
+function leftUntil(when) {
+  const s = Math.max(0, Math.floor((when - Date.now()) / 1000));
+  const d = Math.floor(s / 86400), h = Math.floor(s / 3600) % 24, m = Math.floor(s / 60) % 60, ss = s % 60;
+  return (d ? `${d} d ` : "") + `${String(h).padStart(2, "0")} h ${String(m).padStart(2, "0")} min ${String(ss).padStart(2, "0")} s`;
+}
+function updateLockCounts() {
+  document.querySelectorAll("[data-until]").forEach((el) => { el.textContent = "Faltan " + leftUntil(+el.dataset.until); });
+  const dl = $("#deadline");
+  if (dl) dl.textContent = rsvpOpen() ? `Confirma tu asistencia antes del jueves 19 de noviembre a las 5:00 pm` : "";
+}
+const LOCK_ICO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>`;
+
+// ---------- RSVP ----------
+const ICON_YES = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`;
+const ICON_NO = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>`;
+const ERR_NET = `No pudimos guardar tu respuesta.<p>Revisa tu conexión e inténtalo de nuevo. Si sigue fallando, avísale a quien te invitó.</p>`;
+const digits = (s) => String(s || "").replace(/\D/g, "");
+const prettyPhone = (s) => { const d = digits(s); return d.length === 10 ? `${d.slice(0, 2)} ${d.slice(2, 6)} ${d.slice(6)}` : d; };
+
+function showErr(where, html) { const e = $(where); if (!e) return; e.hidden = false; e.className = "status err"; e.innerHTML = html; }
+
+function renderRsvp(g, editing = false) {
+  const a = localAnswer(g.slug);
+  const box = $("#rsvp");
+  if (!rsvpOpen()) {
+    box.innerHTML = a?.status === "si"
+      ? `<div class="status ok">Confirmaste tu asistencia, ${esc(g.name)}.<p>Tu dulce favorito: ${esc(a.candy || "—")}</p></div>`
+      : a?.status === "no"
+        ? `<div class="status no">Nos avisaste que esta vez no podrás ir. Te vamos a extrañar.</div>`
+        : `<div class="status err">La confirmación cerró el jueves 19 de noviembre a las 5:00 pm.<p>Si aún quieres ir, avísale directamente a quien te invitó.</p></div>`;
+    return;
+  }
+  if (a?.status && !editing) {
+    box.innerHTML = (a.status === "si"
+      ? `<div class="status ok">¡Listo, ${esc(g.name)}! Tu lugar está apartado.<p>Tu dulce favorito: ${esc(a.candy || "—")}</p></div>`
+      : `<div class="status no">Gracias por avisar, ${esc(g.name)}. Te vamos a extrañar.</div>`)
+      + `<p class="help">Puedes cambiar tu respuesta hasta el jueves 19 de noviembre a las 5:00 pm.</p>
+         <div class="row-btns"><button class="btn ghost" type="button" id="edit-rsvp">Cambiar mi respuesta</button></div>`;
+    $("#edit-rsvp").onclick = () => renderRsvp(g, true);
+    return;
+  }
+  let status = a?.status || null;
+  box.innerHTML = `
+    <div class="choices" role="group" aria-label="Tu respuesta">
+      <button type="button" class="choice yes" data-v="si" aria-pressed="${status === "si"}">${ICON_YES}¡Ahí estaré!<small>Apártame lugar y ponche</small></button>
+      <button type="button" class="choice no" data-v="no" aria-pressed="${status === "no"}">${ICON_NO}Esta vez no podré<small>Pero los quiero igual</small></button>
+    </div>
+    <div id="yes-fields" style="display:grid;gap:14px" ${status === "si" ? "" : "hidden"}>
+      <div class="field">
+        <label class="lb" for="candy">¿Cuál es tu dulce favorito?</label>
+        <input type="text" id="candy" maxlength="80" autocomplete="off" placeholder="Ej. Pulparindo, Mazapán, Kinder Delice…" value="${esc(a?.candy || "")}">
+        <p class="help">Lo vamos a necesitar más adelante.</p>
+      </div>
+      <div class="field">
+        <label class="lb" for="wa">Tu WhatsApp</label>
+        <input type="text" id="wa" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="Ej. 33 1234 5678">
+        <p class="help">Te avisaremos por WhatsApp cuando se desbloquee cada sorpresa. Solo lo ven los organizadores.</p>
+      </div>
+    </div>
+    <button class="btn send" type="button" id="send" disabled>Enviar respuesta</button>
+    <div id="rsvp-err" hidden></div>`;
+  const send = $("#send"), candy = $("#candy"), wa = $("#wa");
+  const sync = () => { send.disabled = !status || (status === "si" && (!candy.value.trim() || digits(wa.value).length < 10)); };
+  box.querySelectorAll(".choice").forEach((b) => b.onclick = () => {
+    status = b.dataset.v;
+    box.querySelectorAll(".choice").forEach((x) => x.setAttribute("aria-pressed", x === b));
+    $("#yes-fields").hidden = status !== "si";
+    if (status === "si") candy.focus();
+    sync();
+  });
+  candy.addEventListener("input", sync); wa.addEventListener("input", sync);
+  sync();
+  send.onclick = async () => {
+    if (!rsvpOpen()) { renderRsvp(g); return; }
+    send.disabled = true; send.textContent = "Enviando…";
+    try {
+      const res = await apiPost(status === "si"
+        ? { action: "rsvp", slug: g.slug, status: "si", candy: candy.value.trim(), whatsapp: digits(wa.value) }
+        : { action: "rsvp", slug: g.slug, status: "no" });
+      if (res.error === "cerrado") { toast("La confirmación ya cerró"); renderRsvp(g); return; }
+      if (res.error) throw new Error(res.error);
+      remember(g.slug, res);
+      if (status === "si") { const r = send.getBoundingClientRect(); fx.burst(r.left + r.width / 2, r.top, 160); toast("¡Asistencia confirmada! Nos vemos el 5"); }
+      else toast("Respuesta enviada");
+      renderTree(); renderRsvp(g); renderExchange(g);
+    } catch {
+      send.disabled = false; send.textContent = "Enviar respuesta";
+      showErr("#rsvp-err", ERR_NET);
+    }
+  };
+}
+
+// ---------- Candy exchange ----------
+function lockedHTML(title, until) {
+  return `<div class="locked">
+    <div class="lock-head"><span class="lock-ico">${LOCK_ICO}</span>
+      <div><strong>${title}</strong><div class="lock-count" data-until="${until.getTime()}"></div></div></div>
+  </div>`;
+}
+// Locked sections reveal nothing about what they hold until they open
+function sectionText(titleSel, subSel, title, sub) {
+  $(titleSel).textContent = title;
+  const p = $(subSel); p.textContent = sub || ""; p.hidden = !sub;
+}
+
+function renderExchange(g) {
+  const box = $("#exchange");
+  const a = localAnswer(g.slug);
+  if (!drawOpen()) {
+    sectionText("#ex-title", "#ex-sub", "Sorpresa", "");
+    box.innerHTML = lockedHTML("Se desbloquea el jueves 19 de noviembre a las 5:00 pm", RSVP_CLOSE);
+    updateLockCounts();
+    return;
+  }
+  sectionText("#ex-title", "#ex-sub", "Intercambio secreto de dulces", "Solo participan quienes confirmaron asistencia.");
+  if (a?.status !== "si") {
+    box.innerHTML = `<div class="status err">El intercambio es solo para quienes confirmaron asistencia antes del jueves 19 de noviembre a las 5:00 pm.</div>`;
+    return;
+  }
+  if (a.gives) { renderMission(g, a); return; }
+  box.innerHTML = `<div class="status ok">¡El sorteo ya está abierto!<p>Gira la ruleta para saber a quién le vas a regalar un dulce. Solo aparecen quienes confirmaron.</p></div>
+    <button class="btn send" type="button" id="spin-now">Girar la ruleta</button>
+    <div id="ex-err" hidden></div>`;
+  $("#spin-now").onclick = () => runDraw(g);
+}
+
+function wheelSVG(names) {
+  const n = names.length, R = 150, seg = 360 / n;
+  const cols = ["#b1061f", "#13824a", "#8a0418", "#0f6b3c"];
+  const pt = (deg, r) => { const a = (deg - 90) * Math.PI / 180; return [160 + Math.cos(a) * r, 160 + Math.sin(a) * r]; };
+  let out = "";
+  names.forEach((g, i) => {
+    const mid = i * seg + seg / 2;
+    if (n === 1) out += `<circle cx="160" cy="160" r="${R}" fill="${cols[0]}"/>`;
+    else {
+      const [x1, y1] = pt(i * seg, R), [x2, y2] = pt((i + 1) * seg, R);
+      out += `<path d="M160 160 L${x1} ${y1} A${R} ${R} 0 ${seg > 180 ? 1 : 0} 1 ${x2} ${y2}Z" fill="${cols[i % cols.length]}" stroke="#f1c75b" stroke-width="1.5"/>`;
+    }
+    out += `<text x="160" y="${160 - R + 26}" transform="rotate(${mid} 160 160)" text-anchor="middle" font-family="Pacifico, cursive" font-size="${n > 12 ? 13 : 15}" fill="#f6d98a">${esc(g.name)}</text>`;
+  });
+  return `<svg viewBox="0 0 320 320" aria-hidden="true"><circle cx="160" cy="160" r="158" fill="#d6a73f"/><g class="spin" id="spin">${out}</g>
+    ${Array.from({ length: 24 }, (_, i) => { const [x, y] = pt(i * 15, 154); return `<circle cx="${x}" cy="${y}" r="2.6" fill="#fff6e8"/>`; }).join("")}</svg>`;
+}
+
+async function runDraw(g) {
+  if (!drawOpen()) return;
+  const btn = $("#spin-now"); if (btn) { btn.disabled = true; btn.textContent = "Preparando la ruleta…"; }
+  let res;
+  try { res = await apiPost({ action: "draw", slug: g.slug }); }
+  catch { if (btn) { btn.disabled = false; btn.textContent = "Girar la ruleta"; } showErr("#ex-err", ERR_NET); return; }
+  if (res.error) {
+    if (btn) { btn.disabled = false; btn.textContent = "Girar la ruleta"; }
+    showErr("#ex-err", res.error === "sin_nombres"
+      ? `Ya no quedan nombres libres en la ruleta.<p>Los organizadores te van a asignar a alguien.</p>`
+      : ERR_NET);
+    return;
+  }
+  const names = (res.names || []).map((x) => BY[x.slug] || { slug: x.slug, name: x.name });
+  const box = $("#exchange");
+  box.innerHTML = `
+    <div class="wheel-box">
+      <div class="wheel">${wheelSVG(names)}<div class="pointer"></div><div class="hub">Dulce</div></div>
+      <div class="wheel-msg" id="wheel-msg" aria-live="polite">Girando la ruleta…</div>
+    </div>`;
+  const idx = Math.max(0, names.findIndex((x) => x.slug === res.gives));
+  const seg = 360 / names.length;
+  const turn = 360 * 6 + (360 - (idx * seg + seg / 2)) + (Math.random() - .5) * seg * .6;
+  const spin = $("#spin");
+  if (!reduce) { await sleep(60); spin.style.transform = `rotate(${turn}deg)`; await sleep(5200); }
+  else spin.style.transform = `rotate(${turn}deg)`;
+  delete res.names;
+  remember(g.slug, res);
+  $("#wheel-msg").textContent = `¡Te tocó ${res.givesName}!`;
+  const r = $(".wheel").getBoundingClientRect();
+  fx.burst(r.left + r.width / 2, r.top + r.height / 2, 200, true);
+  await sleep(reduce ? 0 : 1400);
+  toast(`Tu misión secreta: regalarle un dulce a ${res.givesName}`);
+  renderExchange(g);
+}
+
+function renderMission(g, a) {
+  const t = BY[a.gives];
+  $("#exchange").innerHTML = `
+    <div class="mission">
+      <div class="avatar">${ornamentSVG(t)}</div>
+      <div>
+        <div class="k">Tu misión secreta</div>
+        <h4>Regálale un dulce a ${esc(t.name)}</h4>
+        <span class="candy-tag">${a.givesCandy ? `Su dulce favorito: ${esc(a.givesCandy)}` : "No nos dejó su dulce favorito."}</span>
+      </div>
+    </div>
+    <p class="secret-note">Shh. Nadie más sabe que te tocó. Llévale su dulce a la posada.</p>
+    <div class="field">
+      <label class="lb" for="anon">Déjale un mensaje anónimo</label>
+      <textarea id="anon" maxlength="280" placeholder="Ej. Tu dulce ya está apartado, pero tendrás que adivinar quién soy…"></textarea>
+      <p class="help">Le llega sin tu nombre y nadie lo puede leer antes del sábado 5 de diciembre a las 6:00 pm. Puedes mandar más de uno.</p>
+    </div>
+    <button class="btn send" type="button" id="send-anon" disabled>Enviar mensaje anónimo</button>
+    <div id="ex-err" hidden></div>`;
+  const ta = $("#anon"), btn = $("#send-anon");
+  ta.addEventListener("input", () => { btn.disabled = !ta.value.trim(); });
+  btn.onclick = async () => {
+    btn.disabled = true; btn.textContent = "Enviando…";
+    try {
+      const res = await apiPost({ action: "msg", slug: g.slug, text: ta.value.trim() });
+      if (res.error) throw new Error(res.error);
+      ta.value = ""; toast(`Mensaje anónimo enviado a ${t.name}`);
+      const r = btn.getBoundingClientRect(); fx.burst(r.left + r.width / 2, r.top, 60);
+    } catch { showErr("#ex-err", ERR_NET); btn.disabled = false; }
+    btn.textContent = "Enviar mensaje anónimo";
+  };
+}
+
+// ---------- Buzón (anonymous messages for this guest, sealed until 5 Dec 6:00 pm) ----------
+async function watchBuzon(g) {
+  const box = $("#buzon");
+  if (!buzonOpen()) {
+    sectionText("#bz-title", "#bz-sub", "Otra sorpresa", "");
+    box.innerHTML = lockedHTML("Se desbloquea el sábado 5 de diciembre a las 6:00 pm", BUZON_OPEN);
+    updateLockCounts();
+    return;
+  }
+  sectionText("#bz-title", "#bz-sub", "Tu buzón secreto", "Los mensajes anónimos de quien te regaló un dulce.");
+  box.innerHTML = `<div class="empty">Abriendo tu buzón…</div>`;
+  try {
+    const res = await apiGet({ action: "buzon", slug: g.slug });
+    if (current() !== g.slug) return;
+    const items = (res.items || []).sort((x, y) => (y.at || "").localeCompare(x.at || ""));
+    box.innerHTML = items.length
+      ? `<div class="letters">${items.map((m, i) => `<div class="letter" style="--r:${i % 2 ? .8 : -.8}deg"><p>${esc(m.text)}</p><small>Anónimo · ${fmt(m.at)}</small></div>`).join("")}</div>`
+      : `<div class="empty">No te llegaron mensajes esta vez.</div>`;
+  } catch { box.innerHTML = `<div class="empty">No pudimos abrir tu buzón. Recarga la página para intentar de nuevo.</div>`; }
+}
+
+// ---------- Piñata ----------
+const PINATA_HITS = 7;
+let hits = 0;
+const PINATA_SVG = (() => {
+  const cols = ["#ff3d8b", "#ffc95a", "#49d39a", "#8fd3ff", "#ff8a3d", "#d7a6ff", "#ff6b6b"];
+  const cones = cols.map((c, i) => {
+    const a = (i / 7) * Math.PI * 2 - Math.PI / 2, x = 100 + Math.cos(a) * 88, y = 100 + Math.sin(a) * 88;
+    const l = a - .22, r = a + .22;
+    return `<polygon points="${100 + Math.cos(l) * 38},${100 + Math.sin(l) * 38} ${x},${y} ${100 + Math.cos(r) * 38},${100 + Math.sin(r) * 38}" fill="${c}"/>
+      <path d="M${x} ${y} l${Math.cos(a) * 6 - 4} ${Math.sin(a) * 6 + 10} M${x} ${y} l${Math.cos(a) * 6 + 4} ${Math.sin(a) * 6 + 12}" stroke="${cols[(i + 2) % 7]}" stroke-width="3"/>`;
+  }).join("");
+  return `<svg viewBox="0 0 200 200" aria-hidden="true">${cones}<circle cx="100" cy="100" r="42" fill="#ffc95a"/><circle cx="100" cy="100" r="42" fill="none" stroke="#ff3d8b" stroke-width="6" stroke-dasharray="10 8"/><circle cx="100" cy="100" r="16" fill="#ff3d8b"/></svg>`;
+})();
+$("#pinata").innerHTML = PINATA_SVG;
+const CHANTS = ["¡Dale!", "¡Dale, dale!", "¡No pierdas el tino!", "¡Mide la distancia!", "¡Que se te va!", "¡Ya casi!", "¡Uno más!"];
+function resetPinata() {
+  hits = 0; $("#pinata").classList.remove("broken"); $("#pin-reset").hidden = true;
+  $("#chant").textContent = "Toca la piñata"; renderHits();
+}
+function renderHits() { $("#hits").innerHTML = Array.from({ length: PINATA_HITS }, (_, i) => `<i class="${i < hits ? "on" : ""}"></i>`).join(""); }
+$("#pinata").addEventListener("click", () => {
+  const p = $("#pinata"); if (p.classList.contains("broken")) return;
+  hits++; renderHits();
+  p.classList.remove("hit"); void p.offsetWidth; p.classList.add("hit");
+  const r = p.getBoundingClientRect();
+  if (hits >= PINATA_HITS) {
+    p.classList.add("broken");
+    fx.burst(r.left + r.width / 2, r.top + r.height / 2, 220, true);
+    $("#chant").textContent = "¡La rompiste! Ya estás en forma para el 5";
+    $("#pin-reset").hidden = false;
+  } else {
+    fx.burst(r.left + r.width / 2, r.top + r.height / 2, 12);
+    $("#chant").textContent = CHANTS[hits - 1];
+  }
+});
+$("#pin-reset").addEventListener("click", resetPinata);
+
+// ---------- Organizers' panel ----------
+function linkFor(slug) { return location.href.split("#")[0] + "#" + slug; }
+function fmt(iso) {
+  try { return new Date(iso).toLocaleString("es-MX", { day: "numeric", month: "short", hour: "numeric", minute: "2-digit" }); } catch { return ""; }
+}
+let pRsvp = null, pCandy = null, pMsgs = 0, showPairs = false, knownCandy = null;
+const SEEN_KEY = "panel:seen";
+
+function chime() {
+  try {
+    const ctx = chime.ctx || (chime.ctx = new AudioContext());
+    [880, 1175, 1568].forEach((f, i) => {
+      const o = ctx.createOscillator(), g = ctx.createGain();
+      o.frequency.value = f; o.type = "sine";
+      g.gain.setValueAtTime(.0001, ctx.currentTime + i * .12);
+      g.gain.exponentialRampToValueAtTime(.18, ctx.currentTime + i * .12 + .02);
+      g.gain.exponentialRampToValueAtTime(.0001, ctx.currentTime + i * .12 + .5);
+      o.connect(g).connect(ctx.destination); o.start(ctx.currentTime + i * .12); o.stop(ctx.currentTime + i * .12 + .55);
+    });
+  } catch {}
+}
+
+// Organizers' panel: protected by the password set in Code.gs (ADMIN_KEY)
+let panelTimer = null;
+function renderPanel() {
+  const box = $("#panel");
+  const head = `<div class="panel-head"><span class="eyebrow">Solo organizadores</span><h2>Panel de la posada</h2></div>`;
+  const key = (() => { try { return sessionStorage.getItem("panel:key"); } catch { return null; } })();
+  if (!key) {
+    box.innerHTML = head + `<div class="card" style="max-width:420px">
+      <div class="field"><label class="lb" for="pkey">Contraseña del panel</label>
+      <input type="text" id="pkey" autocomplete="off" placeholder="La que pusiste en Code.gs"></div>
+      <button class="btn send" type="button" id="pgo">Entrar</button><div id="perr" hidden></div></div>`;
+    const go = async () => {
+      const k = $("#pkey").value.trim(); if (!k) return;
+      $("#pgo").disabled = true;
+      try {
+        const res = await apiGet({ action: "panel", key: k });
+        if (res.error) { $("#pgo").disabled = false; showErr("#perr", "Contraseña incorrecta."); return; }
+        try { sessionStorage.setItem("panel:key", k); } catch {}
+        applyPanel(res); renderPanel();
+      } catch { $("#pgo").disabled = false; showErr("#perr", "No pudimos conectar con la hoja de Google. Revisa la URL del script."); }
+    };
+    $("#pgo").onclick = go;
+    $("#pkey").addEventListener("keydown", (e) => { if (e.key === "Enter") go(); });
+    return;
+  }
+  if (!pRsvp) box.innerHTML = head + `<div class="empty">Cargando respuestas…</div>`;
+  else drawPanel();
+  const load = async () => {
+    try {
+      const res = await apiGet({ action: "panel", key });
+      if (res.error) { try { sessionStorage.removeItem("panel:key"); } catch {} renderPanel(); return; }
+      applyPanel(res); drawPanel();
+    } catch {}
+  };
+  load();
+  clearInterval(panelTimer);
+  panelTimer = setInterval(() => { if ($("#v-panel").hidden) clearInterval(panelTimer); else load(); }, 30000);
+}
+function applyPanel(res) {
+  const answers = res.answers || {};
+  const m = {};
+  for (const [s, a] of Object.entries(answers)) if (a.status === "si" && a.candy) m[s] = { candy: a.candy, at: a.at };
+  if (knownCandy && !$("#v-panel").hidden) {
+    const fresh = Object.keys(m).filter((s) => !knownCandy[s] || knownCandy[s].candy !== m[s].candy);
+    if (fresh.length && BY[fresh[0]]) { chime(); toast(`${BY[fresh[0]].name} ya dijo su dulce favorito: ${m[fresh[0]].candy}`); }
+  }
+  knownCandy = m; pCandy = m; pRsvp = answers; pMsgs = res.msgCount || 0;
+}
+
+function drawPanel() {
+  if (!pRsvp || $("#v-panel").hidden) return;
+  const candy = pCandy || {};
+  const seen = store.get(SEEN_KEY) || "";
+  const yes = GUESTS.filter((g) => pRsvp[g.slug]?.status === "si");
+  const no = GUESTS.filter((g) => pRsvp[g.slug]?.status === "no");
+  const wait = GUESTS.filter((g) => !pRsvp[g.slug]);
+  const withWa = yes.filter((g) => digits(pRsvp[g.slug]?.whatsapp).length >= 10);
+  const isNew = (s) => candy[s] && (candy[s].at || "") > seen;
+  const fresh = GUESTS.filter((g) => isNew(g.slug));
+  const pct = (n) => (n / GUESTS.length) * 100;
+  const giverOf = {};
+  for (const g of GUESTS) { const t = pRsvp[g.slug]?.gives; if (t) giverOf[t] = g.slug; }
+  const noGiver = yes.filter((g) => !giverOf[g.slug]);
+  const order = [...GUESTS].sort((x, y) => {
+    const ax = candy[x.slug]?.at || pRsvp[x.slug]?.at || "", ay = candy[y.slug]?.at || pRsvp[y.slug]?.at || "";
+    return ay.localeCompare(ax);
+  });
+  const pill = (a) => !a ? `<span class="pill wait">Pendiente</span>` : a.status === "si" ? `<span class="pill ok">Asistirá</span>` : `<span class="pill no">No asistirá</span>`;
+
+  $("#panel").innerHTML = `
+    <div class="panel-head"><span class="eyebrow">Solo organizadores · se actualiza en vivo</span><h2>Panel de la posada</h2></div>
+    <div class="stats">
+      <div class="stat ok"><b>${yes.length}</b><span>Asistirán</span></div>
+      <div class="stat no"><b>${no.length}</b><span>No asistirán</span></div>
+      <div class="stat wait"><b>${wait.length}</b><span>Sin responder</span></div>
+      <div class="stat candy"><b>${withWa.length}</b><span>Con WhatsApp</span></div>
+    </div>
+    <div class="meter" aria-hidden="true"><i style="width:${pct(yes.length)}%;background:var(--ok)"></i><i style="width:${pct(no.length)}%;background:var(--no)"></i></div>
+
+    <div class="feed">
+      <div class="feed-head">
+        <h3>Confirmaciones${fresh.length ? `<span class="badge">${fresh.length} nuevo${fresh.length > 1 ? "s" : ""}</span>` : ""}</h3>
+        ${fresh.length ? `<button class="btn ghost" type="button" id="mark-seen">Marcar como visto</button>` : ""}
+      </div>
+      <div class="list">
+        ${order.map((g) => {
+          const a = pRsvp[g.slug], c = candy[g.slug];
+          return `<div class="row ${isNew(g.slug) ? "new" : ""}">
+            <span class="mini">${ornamentSVG(g)}</span>
+            <div style="min-width:0">
+              <div class="who">${esc(g.name)}</div>
+              ${a?.status === "si" ? `
+                <div class="msg">Dulce favorito: <strong>${esc(c?.candy || a.candy || "—")}</strong></div>
+                <div class="msg">WhatsApp: ${digits(a.whatsapp).length >= 10 ? `<strong>${esc(prettyPhone(a.whatsapp))}</strong>` : `<span style="color:var(--no)">falta</span>`}</div>`
+              : a?.status === "no" ? `<div class="msg" style="color:var(--muted)">Avisó que no podrá ir</div>`
+              : `<div class="msg" style="color:var(--muted)">Todavía no responde</div>`}
+              ${a ? `<div class="meta">Respondió ${fmt(c?.at || a.at)}</div>` : ""}
+            </div>
+            ${isNew(g.slug) ? `<span class="pill new">Nuevo</span>` : pill(a)}
+          </div>`;
+        }).join("")}
+      </div>
+    </div>
+
+    <div class="pairs">
+      <div class="feed-head">
+        <h3>Sorteo de dulces</h3>
+        <button class="btn ghost" type="button" id="toggle-pairs">${showPairs ? "Ocultar quién le regala a quién" : "Mostrar quién le regala a quién"}</button>
+      </div>
+      <p>Secreto: los invitados no ven esto. Úsalo para saber qué dulce compra cada quien.</p>
+      ${showPairs ? (GUESTS.filter((g) => pRsvp[g.slug]?.gives).map((g) => {
+          const t = pRsvp[g.slug].gives;
+          return `<div class="pair"><div><strong>${esc(g.name)}</strong><small>regala</small></div><span aria-hidden="true">→</span>
+            <div class="to"><strong>${esc(BY[t].name)}</strong><small>${candy[t] ? esc(candy[t].candy) : "sin dulce aún"}</small></div></div>`;
+        }).join("") || `<div class="empty">Todavía nadie gira la ruleta.</div>`) : ""}
+      ${noGiver.length ? `<div class="warn">Confirmaron pero aún nadie les regala: ${noGiver.map((g) => esc(g.name)).join(", ")}. Se llenará conforme los demás giren la ruleta.</div>` : ""}
+    </div>
+
+    <div class="links">
+      <h3>Cómo mandar los avisos</h3>
+      <p>Cada botón abre <strong>tu</strong> WhatsApp con el chat de esa persona y el mensaje ya escrito; tú solo le das enviar. El mensaje sale desde tu número.</p>
+      <div class="warn" style="margin-top:0">
+        <strong>En el celular:</strong> abre este panel en el celular donde tienes WhatsApp; el botón abre la app directo.<br>
+        <strong>En la computadora:</strong> el botón abre WhatsApp Web. La primera vez, vincúlalo: en tu celular ve a WhatsApp → Ajustes → Dispositivos vinculados → Vincular un dispositivo, y escanea el código que aparece.<br>
+        Al regresar a esta pestaña, toca <strong>“Enviar al siguiente pendiente”</strong> para seguir con el próximo.
+      </div>
+    </div>
+
+    ${waSection(yes, "s1", "Aviso 1 · Primera sorpresa", "Enviar el jue 19 nov, 5:00 pm", "Ya desbloqueada", drawOpen(),
+      "El jueves 19 de noviembre a las 5:00 pm se abre la primera sorpresa (el intercambio de dulces). Toca cada botón: se abre WhatsApp con el aviso ya escrito y su link.",
+      (g) => `¡Hola ${g.name}! 🎁 Ya se desbloqueó la primera sorpresa de la Posada ¿De aquí a dónde 2.0? Entra a tu invitación para descubrirla: ${linkFor(g.slug)}`)}
+
+    ${waSection(yes, "s2", "Aviso 2 · Última sorpresa", "Enviar el sáb 5 dic, 6:00 pm", "Ya desbloqueada", buzonOpen(),
+      "El sábado 5 de diciembre a las 6:00 pm se abre la última sorpresa (los mensajes anónimos). Nadie, ni ustedes, puede leerlos antes de esa hora.",
+      (g) => `¡Hola ${g.name}! 🎄 Ya son las 6:00 pm: se desbloqueó la última sorpresa de la Posada ¿De aquí a dónde 2.0? Entra a tu invitación para verla: ${linkFor(g.slug)}`)}
+
+    <div class="links">
+      <h3>Links personales</h3>
+      <p>Mándale a cada quien su link: abre directo su invitación.</p>
+      ${GUESTS.map((g) => `<div class="link-row"><code>${esc(linkFor(g.slug))}</code><button class="btn ghost" type="button" data-copy="${g.slug}">Copiar · ${esc(g.name)}</button></div>`).join("")}
+    </div>`;
+}
+// One round of WhatsApp reminders: a prewritten wa.me link per confirmed guest, marked when tapped
+function waSection(yes, key, title, pendingLbl, openLbl, open, intro, textFor) {
+  const waHref = (g) => {
+    const d = digits(pRsvp[g.slug]?.whatsapp);
+    return `https://wa.me/${d.length === 10 ? "52" + d : d}?text=${encodeURIComponent(textFor(g))}`;
+  };
+  const hasNum = (g) => digits(pRsvp[g.slug]?.whatsapp).length >= 10;
+  const isSent = (g) => !!store.get(`wa:sent:${key}:${g.slug}`);
+  const pending = yes.filter((g) => hasNum(g) && !isSent(g));
+  const next = pending[0];
+  const rows = yes.map((g) => {
+    const d = digits(pRsvp[g.slug]?.whatsapp);
+    return `<div class="link-row"><div style="min-width:0"><strong>${esc(g.name)}</strong> <code>${d ? esc(prettyPhone(d)) : "sin número"}</code>${isSent(g) ? ` <span class="pill ok">Enviado</span>` : ""}</div>
+      ${hasNum(g) ? `<a class="btn ghost" href="${waHref(g)}" target="_blank" rel="noopener" data-wa="${key}:${g.slug}">${isSent(g) ? "Reenviar" : "Enviar WhatsApp"}</a>` : `<span class="pill wait">Sin WhatsApp</span>`}</div>`;
+  }).join("");
+  const sentCount = yes.filter(isSent).length;
+  return `<div class="links">
+    <div class="feed-head"><h3>${title}</h3><span class="pill ${open ? "ok" : "wait"}">${open ? openLbl : pendingLbl}</span></div>
+    <p>${intro}</p>
+    ${yes.length ? `<div class="row-btns" style="align-items:center;margin-bottom:8px">
+      ${next ? `<a class="btn send" href="${waHref(next)}" target="_blank" rel="noopener" data-wa="${key}:${next.slug}">Enviar al siguiente pendiente: ${esc(next.name)}</a>` : `<span class="pill ok">Todos enviados</span>`}
+      <span class="help">${sentCount} de ${yes.length} enviados</span></div>` : ""}
+    ${rows || `<div class="empty">Aquí aparecerán quienes confirmen asistencia, con su WhatsApp.</div>`}
+  </div>`;
+}
+$("#panel").addEventListener("click", async (e) => {
+  if (e.target.id === "toggle-pairs") { showPairs = !showPairs; drawPanel(); return; }
+  if (e.target.id === "mark-seen") { store.set(SEEN_KEY, new Date().toISOString()); drawPanel(); return; }
+  const w = e.target.closest("[data-wa]");
+  if (w) { store.set("wa:sent:" + w.dataset.wa, true); setTimeout(drawPanel, 300); return; }
+  const b = e.target.closest("[data-copy]"); if (!b) return;
+  const text = linkFor(b.dataset.copy);
+  try { await navigator.clipboard.writeText(text); toast("Link copiado"); }
+  catch {
+    const code = b.previousElementSibling; const r = document.createRange(); r.selectNodeContents(code);
+    const s = getSelection(); s.removeAllRanges(); s.addRange(r); toast("Selecciona y copia el link");
+  }
+});
+
+// ---------- Routing ----------
+function current() { return decodeURIComponent(location.hash.slice(1)).toLowerCase(); }
+function route() {
+  const h = current();
+  clearInterval(tick);
+  // Anyone but the owner who lands on #panel just sees the tree
+  if (h === "panel") { show("#v-panel"); renderPanel(); return; }
+  if (BY[h]) { renderGuest(h); return; }
+  renderTree(); show("#v-pick");
+}
+addEventListener("hashchange", route);
+$("#back").onclick = () => { location.hash = ""; };
+$("#back2").onclick = () => { location.hash = ""; };
+
+renderTree(); route();
+initData();
+</script>
+
+</body>
+</html>
